@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,7 +39,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -86,11 +86,10 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label21 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button12 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -102,10 +101,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(538, 352);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 16);
+            this.label5.Size = new System.Drawing.Size(68, 18);
             this.label5.TabIndex = 29;
             this.label5.Text = "Каналы";
             // 
@@ -177,21 +176,11 @@
             this.textBox1.TabIndex = 21;
             this.textBox1.Text = "2";
             // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(183, 352);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(67, 63);
-            this.button7.TabIndex = 20;
-            this.button7.Text = "Рассчитать сатурацию крови";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(96, 352);
+            this.button6.Location = new System.Drawing.Point(12, 353);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(81, 63);
+            this.button6.Size = new System.Drawing.Size(78, 70);
             this.button6.TabIndex = 19;
             this.button6.Text = "Рассчитать точки max-min";
             this.button6.UseVisualStyleBackColor = true;
@@ -199,9 +188,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 419);
+            this.button5.Location = new System.Drawing.Point(12, 428);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(78, 58);
+            this.button5.Size = new System.Drawing.Size(78, 53);
             this.button5.TabIndex = 18;
             this.button5.Text = "Обновить";
             this.button5.UseVisualStyleBackColor = true;
@@ -229,33 +218,33 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
             this.radioButton2.Location = new System.Drawing.Point(4, 26);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(160, 17);
             this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Постоянная и переменная";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(4, 5);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(165, 17);
             this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Постоянная составляющая";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(93, 438);
+            this.label9.Location = new System.Drawing.Point(93, 429);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(131, 13);
+            this.label9.Size = new System.Drawing.Size(75, 26);
             this.label9.TabIndex = 40;
-            this.label9.Text = "Регулировка точек ФПГ";
+            this.label9.Text = "Регулировка \r\nточек ФПГ";
             // 
             // comboBox2
             // 
@@ -271,7 +260,7 @@
             "80",
             "90",
             "100"});
-            this.comboBox2.Location = new System.Drawing.Point(96, 463);
+            this.comboBox2.Location = new System.Drawing.Point(96, 456);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(70, 21);
             this.comboBox2.TabIndex = 39;
@@ -340,9 +329,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(644, 134);
+            this.button2.Location = new System.Drawing.Point(641, 134);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 40);
+            this.button2.Size = new System.Drawing.Size(94, 40);
             this.button2.TabIndex = 31;
             this.button2.Text = "Сохранить данные";
             this.button2.UseVisualStyleBackColor = true;
@@ -362,7 +351,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(746, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(221, 327);
+            this.richTextBox1.Size = new System.Drawing.Size(221, 356);
             this.richTextBox1.TabIndex = 42;
             this.richTextBox1.Text = "";
             // 
@@ -382,9 +371,9 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 352);
+            this.button8.Location = new System.Drawing.Point(96, 353);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(78, 63);
+            this.button8.Size = new System.Drawing.Size(92, 69);
             this.button8.TabIndex = 44;
             this.button8.Text = "Рассчитать особые точки с одного канала";
             this.button8.UseVisualStyleBackColor = true;
@@ -711,30 +700,12 @@
             this.textBox11.TabIndex = 156;
             this.textBox11.Text = "3";
             // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(251, 352);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 63);
-            this.button11.TabIndex = 157;
-            this.button11.Text = "Рассчитать и вывести только сатурацию";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.Button11_Click);
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(605, 345);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(139, 23);
-            this.button13.TabIndex = 159;
-            this.button13.Text = "Test saturation new";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(758, 512);
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(756, 499);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(209, 17);
             this.checkBox2.TabIndex = 0;
@@ -747,7 +718,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(756, 463);
+            this.checkBox1.Location = new System.Drawing.Point(756, 451);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(201, 30);
             this.checkBox1.TabIndex = 161;
@@ -756,24 +727,33 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(332, 345);
+            this.button12.Location = new System.Drawing.Point(194, 353);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(74, 70);
             this.button12.TabIndex = 162;
-            this.button12.Text = "Рассчитать только сатурацию крови 2";
+            this.button12.Text = "Рассчитать сатурацию крови";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(271, 353);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(88, 69);
+            this.button14.TabIndex = 163;
+            this.button14.Text = "Рассчитать и вывести только сатурацию";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(979, 541);
+            this.Controls.Add(this.button14);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.button13);
-            this.Controls.Add(this.button11);
             this.Controls.Add(this.textBox11);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.progressBar1);
@@ -802,10 +782,10 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
@@ -836,7 +816,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
@@ -884,11 +863,10 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button13;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button14;
     }
 }
 

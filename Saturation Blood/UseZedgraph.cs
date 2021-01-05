@@ -334,26 +334,26 @@ namespace Saturation_Blood
         public void Make_Graph_Saturation(double[] Saturation_t, double[] Saturation_y1, double[] Saturation_y2, int ew)
         {
             PointPairList f_saturation = new PointPairList();
-            PointPairList f_saturation2 = new PointPairList();
+          //  PointPairList f_saturation2 = new PointPairList();
 
             for (int y = 3; y < ew - 1; y++)
             {
                 f_saturation.Add(Saturation_t[y], Saturation_y1[y] * 100);                
-                f_saturation2.Add(Saturation_t[y], Saturation_y2[y] * 100);
+            //    f_saturation2.Add(Saturation_t[y], Saturation_y2[y] * 100);
             }
 
             int axis2 = pane.AddYAxis("Степень оксигенации, %");
 
             LineItem f_satur = pane.AddCurve("Степень оксигенации %", f_saturation, Color.DarkGoldenrod, SymbolType.Circle);
-            LineItem f_satur2 = pane.AddCurve("Степень оксигенации %", f_saturation2, Color.Green, SymbolType.Diamond);
+         //   LineItem f_satur2 = pane.AddCurve("Степень оксигенации %", f_saturation2, Color.Green, SymbolType.Diamond);
 
             f_satur.YAxisIndex = axis2;          
 
             f_satur.Symbol.Fill.Type = FillType.Solid;
             f_satur.Symbol.Size = 8;
 
-            f_satur2.Symbol.Fill.Type = FillType.Solid;
-            f_satur2.Symbol.Size = 8;
+         //   f_satur2.Symbol.Fill.Type = FillType.Solid;
+        //    f_satur2.Symbol.Size = 8;
 
            // pane.YAxisList[axis2].Title.FontSpec.FontColor = Color.Black;
 

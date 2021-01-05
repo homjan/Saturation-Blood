@@ -159,26 +159,48 @@ namespace Saturation_Blood
         }
 
         public void Subscribe_Length_Osob_Full() {
-            if (length_osob_red_const < length_osob_IK_const)
+
+            int min_length = length_osob_red_const;
+            if (min_length > length_osob_IK_const)
             {
-                length_osob_IK_const = length_osob_red_const;
-                length_osob_IK_diff = length_osob_red_const;
+                min_length = length_osob_IK_const;
             }
-            else
+            if (min_length>length_osob_red_diff)
             {
-                length_osob_red_const = length_osob_IK_const;
-                length_osob_red_diff = length_osob_IK_const;
+                min_length = length_osob_red_diff;
             }
+            if (min_length>length_osob_IK_diff)
+            {
+                min_length = length_osob_IK_diff;
+            }
+
+            length_osob_IK_const = min_length;
+            length_osob_IK_diff = min_length;
+            length_osob_red_const = min_length;
+            length_osob_red_diff = min_length;
 
         }
 
         public void Calculate_K_Pow_Diff() {
-            for (int i = 1; i < length_osob_red_const; i++)
+            int length_min_red = length_osob_red_const;
+            if (length_osob_red_diff<length_osob_red_const)
+            {
+                length_min_red = length_osob_red_diff;
+            }
+
+            int length_min_IK = length_osob_IK_const;
+            if (length_osob_IK_diff<length_osob_IK_const)
+            {
+                length_min_IK = length_osob_IK_diff;
+            }
+
+
+            for (int i = 1; i < length_min_red; i++)
             {
                 K_Pow_diff_RED[i] = System.Convert.ToDouble((osob_red_diff[4, i] + osob_red_diff[10, i]) - osob_red_diff[2, i]) / System.Convert.ToDouble((osob_red_const[4, i] + osob_red_const[10, i]) - osob_red_const[2, i]);
             }
 
-            for (int i = 1; i < length_osob_IK_const; i++)
+            for (int i = 1; i < length_min_IK; i++)
             {
                 K_Pow_diff_IK[i] = System.Convert.ToDouble((osob_IK_diff[4, i] + osob_IK_diff[10, i]) - osob_IK_diff[2, i]) / System.Convert.ToDouble((osob_IK_const[4, i] + osob_IK_const[10, i]) - osob_IK_const[2, i]);
             }

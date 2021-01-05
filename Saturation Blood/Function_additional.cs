@@ -21,7 +21,6 @@ namespace Saturation_Blood
             }
 
             return rowx;
-
         }
 
         public static double[,] Proizvodnaja_Massiv(double[,] sloj, int x, int y)

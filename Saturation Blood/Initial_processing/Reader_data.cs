@@ -10,11 +10,17 @@ namespace Saturation_Blood.Initial_processing
     public class Reader_data
     {
         const int time_numerical = 60;
+        int time_numerical2;
         private String name;
+        private long size;
 
         public Reader_data(String s)
         {
             this.name = s;
+            System.IO.FileInfo file = new System.IO.FileInfo(s);
+            size = file.Length;
+            time_numerical2 = Convert.ToInt32(Convert.ToDouble(size) / 30.0);
+            
         }
 
 
@@ -33,10 +39,10 @@ namespace Saturation_Blood.Initial_processing
 
 
             int m = 0;//смещение буффера
-
-            int potok = 5;
+                        
             int potok2 = 12;
-            int ckor = time_numerical * (230400 / 400) * (10 + potok2 * potok / 3);
+            // int ckor = time_numerical * (230400 / 400) * (10 + potok2 / 3);
+            int ckor = time_numerical2;
 
             long[,] row11 = new long[ckor, 1 + potok2];
 
@@ -100,7 +106,8 @@ namespace Saturation_Blood.Initial_processing
 
             int potok = 5;
             int potok2 = 12;
-            int ckor = time_numerical * (230400 / 400) * (10 + potok2 * potok / 3);
+            // int ckor = time_numerical * (230400 / 400) * (10 + potok2 * potok / 3);
+            int ckor = time_numerical2;
 
             long[,] row11 = new long[ckor, 1 + potok2];
 
@@ -157,7 +164,6 @@ namespace Saturation_Blood.Initial_processing
             //  int ckor = time_numerical * (230400 / 400) * (10 + potok2 * potok / 3);
 
             long[,] row11 = new long[1 + potok2, ckor];
-
             long[,] row22 = new long[1 + potok2, ckor];
 
             StreamReader sw = new StreamReader(name);
