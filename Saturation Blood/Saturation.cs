@@ -42,7 +42,13 @@ namespace Saturation_Blood
         double[] Saturation1;
         double[] Saturation2; 
         double[] Saturation_t;
-
+        /// <summary>
+        /// Конструктор для расчета сатурации крови
+        /// </summary>
+        /// <param name="osob_red_const">массив особых точек красного постоянного сигнала</param>
+        /// <param name="osob_red_diff">массив особых точек красного переменного сигнала</param>
+        /// <param name="osob_IK_const">массив особых точек ИК постоянного сигнала</param>
+        /// <param name="osob_IK_diff">массив особых точек ИК переменного сигнала</param>
         public Saturation(long[,] osob_red_const, long[,] osob_red_diff, long[,] osob_IK_const, long[,] osob_IK_diff)
         {
             this.osob_red_const = osob_red_const;
@@ -69,7 +75,9 @@ namespace Saturation_Blood
             Intensity_IK_diff = new double[length_osob_IK_diff, 3];
 
         }
-
+        /// <summary>
+        /// Установить данные красного канала
+        /// </summary>
         private void Set_Red_Const() {
 
             length_osob_red_const = osob_red_const.Length / 15;
@@ -85,9 +93,10 @@ namespace Saturation_Blood
             Intensity_RED_diff = new double[length_osob_red_diff, 3];           
 
         }
-
+        /// <summary>
+        /// Установить данные ИК канала
+        /// </summary>
         private void Set_IK_Const() {
-
           
             length_osob_IK_const = osob_IK_const.Length / 15;
             length_osob_IK_diff = osob_IK_diff.Length / 15;
@@ -127,7 +136,12 @@ namespace Saturation_Blood
         */
 
      
-      
+      /// <summary>
+      /// Установить Коэффициенты усиления постоянного сигнала
+      /// </summary>
+      /// <param name="atten"></param>
+      /// <param name="k_pow_const_RED"></param>
+      /// <param name="k_pow_const_IK"></param>
         public void Set_K_Pow_Const( double atten, double k_pow_const_RED, double k_pow_const_IK) 
         {
              Atten = atten;
@@ -135,7 +149,9 @@ namespace Saturation_Blood
              K_pow_const_IK= k_pow_const_IK/Atten;
         }
 
-
+        /// <summary>
+        /// Выставить минимальное число особых точек для каждого цвета
+        /// </summary>
         public void Subscribe_Length_Special() {
 
             if (length_osob_red_const < length_osob_red_diff)
@@ -158,6 +174,9 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Выставить минимальное число особых точек 
+        /// </summary>
         public void Subscribe_Length_Osob_Full() {
 
             int min_length = length_osob_red_const;
@@ -180,7 +199,9 @@ namespace Saturation_Blood
             length_osob_red_diff = min_length;
 
         }
-
+        /// <summary>
+        /// Рассчитать коэффициент усиления переменного сигнала
+        /// </summary>
         public void Calculate_K_Pow_Diff() {
             int length_min_red = length_osob_red_const;
             if (length_osob_red_diff<length_osob_red_const)
@@ -207,13 +228,15 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Рассчитать размерную интенсивность
+        /// </summary>
         public void Calculate_Intensity() {
 
             for (int i = 0; i < length_osob_red_const - 1; i++)
             {
                 Intensity_RED_const[i, 0] = System.Convert.ToDouble(osob_red_const[2, i] - shift_zero_scale) * 2.5 / 512;//минимум
                 Intensity_RED_const[i, 1] = System.Convert.ToDouble((osob_red_const[4, i] + osob_red_const[10, i]) - shift_zero_scale) * 2.5 / 512;//Максимум
-                //Intensity_RED_const[i, 2] = System.Convert.ToDouble(osob_red_const[11, i] - 512) * 2.5 / 512;//среднее
                 Intensity_RED_const[i, 2] = System.Convert.ToDouble(((osob_red_const[2, i]+ osob_red_const[4, i] + osob_red_const[10, i]) /2) - shift_zero_scale) * 2.5 / 512;//среднее
 
             }
@@ -222,15 +245,13 @@ namespace Saturation_Blood
             {
                 Intensity_IK_const[i, 0] = System.Convert.ToDouble(osob_IK_const[2, i] - shift_zero_scale) * 2.5 / 512;//минимум
                 Intensity_IK_const[i, 1] = System.Convert.ToDouble((osob_IK_const[4, i] + osob_IK_const[10, i]) - shift_zero_scale) * 2.5 / 512;//Максимум
-              //  Intensity_IK_const[i, 2] = System.Convert.ToDouble(osob_IK_const[11, i] - 512) * 2.5 / 512;//среднее
-              Intensity_IK_const[i, 2] = System.Convert.ToDouble(((osob_IK_const[2, i]+ osob_IK_const[4, i] + osob_IK_const[10, i]) /2) - shift_zero_scale) * 2.5 / 512;//среднее
+                Intensity_IK_const[i, 2] = System.Convert.ToDouble(((osob_IK_const[2, i]+ osob_IK_const[4, i] + osob_IK_const[10, i]) /2) - shift_zero_scale) * 2.5 / 512;//среднее
             }
 
             for (int i = 0; i < length_osob_red_diff - 1; i++)
             {
                 Intensity_RED_diff[i, 0] = System.Convert.ToDouble(osob_red_diff[2, i] - shift_zero_scale) * 2.5 / 512;//минимум
                 Intensity_RED_diff[i, 1] = System.Convert.ToDouble((osob_red_diff[4, i] + osob_red_diff[10, i]) - shift_zero_scale) * 2.5 / 512;//Максимум
-                //Intensity_RED_diff[i, 2] = System.Convert.ToDouble(osob_red_diff[11, i] - 512) * 2.5 / 512;//среднее
                 Intensity_RED_diff[i, 2] = System.Convert.ToDouble(((osob_red_diff[2, i]+osob_red_diff[4, i] + osob_red_diff[10, i]) /2) - shift_zero_scale) * 2.5 / 512;//среднее
 
             }
@@ -239,15 +260,15 @@ namespace Saturation_Blood
             {
                 Intensity_IK_diff[i, 0] = System.Convert.ToDouble(osob_IK_diff[2, i] - shift_zero_scale) * 2.5 / 512;//минимум
                 Intensity_IK_diff[i, 1] = System.Convert.ToDouble((osob_IK_diff[4, i] + osob_IK_diff[10, i]) - shift_zero_scale) * 2.5 / 512;//Максимум
-               // Intensity_IK_diff[i, 2] = System.Convert.ToDouble(osob_IK_diff[11, i] - 512) * 2.5 / 512;//среднее
                 Intensity_IK_diff[i, 2] = System.Convert.ToDouble(((osob_IK_diff[2, i]+osob_IK_diff[4, i] + osob_IK_diff[10, i]) /2) - shift_zero_scale) * 2.5 / 512;//среднее
-
 
             }
 
 
         }
-
+        /// <summary>
+        /// Рассчитать временные координаты точек сатурации
+        /// </summary>
         public void Calculate_Saturation_Time() {
 
             for (int i = 0; i < length_osob_red_const; i++)//Временные координаты
@@ -256,6 +277,9 @@ namespace Saturation_Blood
             }
         }
 
+        /// <summary>
+        /// Рассчитать насыщение постоянного сигнала (1 способ)
+        /// </summary>
         public void Calculate_Saturation_1_Kalinina_Const() {
             double L_2;
             double L_1;
@@ -265,11 +289,13 @@ namespace Saturation_Blood
                 L_1 = Math.Log((K_pow_const_IK * Intensity_IK_const[i, 1] / 10000) / (K_pow_const_IK * Intensity_IK_const[i, 0] / 10000));
                 L_2 = Math.Log((K_pow_const_RED * Intensity_RED_const[i, 1] / 10000) / (K_pow_const_RED * Intensity_RED_const[i, 0] / 10000));
 
-                //Первый вариант Калининой
                 Saturation1[i] = (E_Hb_650_1 * (L_2 - (E_Hb_900_1 / E_Hb_650_1) * L_1)) / (E_Hb_650_1 * (L_2 - (E_Hb_900_1 / E_Hb_650_1) * L_1) + E_Hb02_900_2 * L_1 - E_Hb02_650_2 * L_2);                               
             }
         }
 
+        /// <summary>
+        /// Рассчитать насыщение постоянного сигнала (2 способ)
+        /// </summary>
         public void Calculate_Saturation_2_New_Const()
         {
             double L_2;
@@ -280,13 +306,15 @@ namespace Saturation_Blood
             {
                 L_1 = Math.Log((K_pow_const_IK * Intensity_IK_const[i, 1] / 10000) / (K_pow_const_IK * Intensity_IK_const[i, 0] / 10000));
                 L_2 = Math.Log((K_pow_const_RED * Intensity_RED_const[i, 1] / 10000) / (K_pow_const_RED * Intensity_RED_const[i, 0] / 10000));
-
-                //Первый вариант Калининой
+                               
                 T_12 = L_1 / L_2;
                 Saturation2[i] = (T_12 * E_Hb_900_1 - E_Hb_650_1) / (E_Hb02_650_2 - E_Hb_650_1 + T_12 * (E_Hb_900_1 - E_Hb02_900_2));
             }
         }
 
+        /// <summary>
+        /// Рассчитать насыщение переменного сигнала (1 способ)
+        /// </summary>
         public void Calculate_Saturation_1_Kalinina_Diff()
         {
             double L_2;
@@ -305,12 +333,10 @@ namespace Saturation_Blood
                 Saturation1[i] = (E_Hb_650_1 * (L_2 - (E_Hb_900_1 / E_Hb_650_1) * L_1)) / (E_Hb_650_1 * (L_2 - (E_Hb_900_1 / E_Hb_650_1) * L_1) + E_Hb02_900_2 * L_1 - E_Hb02_650_2 * L_2);
             }
         }
-        /*
-          private const double E_Hb_650_1 = 3750.12;
-        private const double E_Hb02_650_2 = 368;
-        private const double E_Hb_900_1 = 761.84;
-        private const double E_Hb02_900_2 = 1198;
-         */
+
+        /// <summary>
+        /// Рассчитать насыщение переменного сигнала (2 способ)
+        /// </summary>
         public void Calculate_Saturation_2_New_Diff()
         {
             double L_2;

@@ -8,6 +8,13 @@ namespace Saturation_Blood
 {
     static class Function_additional
     {
+        /// <summary>
+        /// Сконвертировать двумерный массив long в double
+        /// </summary>
+        /// <param name="sloj"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public static double[,] Convert_Long_Double(long[,] sloj, int x, int y)
         {
             double[,] rowx = new double[x, y];
@@ -23,7 +30,14 @@ namespace Saturation_Blood
             return rowx;
         }
 
-        public static double[,] Proizvodnaja_Massiv(double[,] sloj, int x, int y)
+        /// <summary>
+        /// Рассчитать производную массива
+        /// </summary>
+        /// <param name="sloj"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static double[,] Calculate_Derivative_Array(double[,] sloj, int x, int y)
         {
             double[,] rowx = new double[x, y];
 
@@ -49,6 +63,13 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Вернуть одну строку в выбранном диапазоне двумерного массива и обезразмерить
+        /// </summary>
+        /// <param name="sloj">массив</param>
+        /// <param name="x">номер строки</param>
+        /// <param name="N_nejron">предел</param>
+        /// <returns></returns>
         public static double[] Get_One_Line_1024(double[,] sloj, int x, int N_nejron)
         {
             double[] y = new double[N_nejron];
@@ -62,6 +83,12 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Вернуть одну строку двумерного массива
+        /// </summary>
+        /// <param name="sloj"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double[] Get_One_Line(double[,] sloj, int x)
         {
             double[] y = new double[1000];
@@ -75,6 +102,12 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Найти максимум массива в диапазоне х - х+10
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static int Found_Max(double[] layer, int x)
         {
             double max_y = layer[1];
@@ -91,6 +124,12 @@ namespace Saturation_Blood
             return max_x;
         }
 
+        /// <summary>
+        /// Найти минимум массива в диапазоне х - х+10
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static int Found_Min(double[] layer, int x)
         {
             double min_y = layer[1];
@@ -107,6 +146,11 @@ namespace Saturation_Blood
             return min_x;
         }
 
+        /// <summary>
+        /// Вернуть максимальный элемент в данных, возвращаемых нейронной сетью
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <returns></returns>
         public static int Return_Max_Element_Neural_Network(double[] layer)
         {
             double max = 0;
@@ -137,6 +181,12 @@ namespace Saturation_Blood
             return a;
         }
 
+        /// <summary>
+        /// Присоеденить результат работы сети к пульсовому циклу
+        /// </summary>
+        /// <param name="result_NS"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static double[] Layer_1000(double[] result_NS, int number)
         {
             double[] result = new double[1000];
@@ -155,6 +205,13 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Найти максимум В2 В4 по приближенным данным
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="row"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double[] Multiple_Ten_B2_B4(double[] layer, double[] row, int x)
         {
 
@@ -185,7 +242,13 @@ namespace Saturation_Blood
             return y;
 
         }
-
+        /// <summary>
+        /// Найти и записать особые точки постояннного канала относительно переменного
+        /// </summary>
+        /// <param name="init_data"></param>
+        /// <param name="osob_point_diff"></param>
+        /// <param name="number_canal_const"></param>
+        /// <returns></returns>
         public static long[,] Set_Const_Special_Point_from_Diff(Initial_Data init_data, long[,] osob_point_diff, int number_canal_const)
         {
             int length_osob_point_diff = osob_point_diff.Length / 15;
@@ -218,7 +281,13 @@ namespace Saturation_Blood
         
         }
 
-
+        /// <summary>
+        /// Найти минимум В3 по приближенным данным
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="row"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double[] Multiple_Ten_B3(double[] layer, double[] row, int x)
         {
 

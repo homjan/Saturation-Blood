@@ -220,7 +220,7 @@ namespace Saturation_Blood
          
             //Разделяем 
             Initial_processing.Divided_By_Periods_Data divided_row_red_const = new Initial_processing.Divided_By_Periods_Data(init_data, regul);
-            divided_row_red_const.Return_Data_In_Period();
+            divided_row_red_const.Calculate_Data_In_Period();
            
             Special_Point osob_point_1 = new Special_Point(divided_row_red_const, init_data);
 
@@ -260,7 +260,7 @@ namespace Saturation_Blood
 
             //Разделяем 
             Initial_processing.Divided_By_Periods_Data divided_row_red_const = new Initial_processing.Divided_By_Periods_Data(init_data, regul);
-            divided_row_red_const.Return_Data_In_Period();
+            divided_row_red_const.Calculate_Data_In_Period();
            // divided_row_red_const.Delete_zero_in_period();
 
             Special_Point osob_point_1 = new Special_Point(divided_row_red_const, init_data);
@@ -332,7 +332,7 @@ namespace Saturation_Blood
 
             //Разделяем 
             Initial_processing.Divided_By_Periods_Data divided_row_red_const = new Initial_processing.Divided_By_Periods_Data(init_data, regul);
-            divided_row_red_const.Return_Data_In_Period();
+            divided_row_red_const.Calculate_Data_In_Period();
           //  divided_row_red_const.Delete_zero_in_period();
 
             Special_Point osob_point_1 = new Special_Point(divided_row_red_const, init_data);
@@ -419,7 +419,7 @@ namespace Saturation_Blood
 
             //Разделяем 
             Initial_processing.Divided_By_Periods_Data divided_row = new Initial_processing.Divided_By_Periods_Data(init_data, this.comboBox3.Text);
-            divided_row.Return_Data_In_Period();
+            divided_row.Calculate_Data_In_Period();
             //divided_row.delete_zero_in_period();
 
             Special_Point osob_point = new Special_Point(divided_row, init_data);

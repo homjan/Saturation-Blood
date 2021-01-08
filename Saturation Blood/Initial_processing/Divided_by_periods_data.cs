@@ -40,7 +40,10 @@ namespace Saturation_Blood.Initial_processing
             this.combobox_3 = text;
         }
 
-        public void Return_Data_In_Period()
+        /// <summary>
+        /// Перевести данные в массив пульсовых циклов
+        /// </summary>
+        public void Calculate_Data_In_Period()
         {
             int b = init_data.Get_b();
 
@@ -152,9 +155,13 @@ namespace Saturation_Blood.Initial_processing
 
                 }
             }///////Конец else
-        } //Заполняем период данными
+        }
 
-        public long[] Period_In_Data()
+        /// <summary>
+        /// Перевести в одномерный массив
+        /// </summary>
+        /// <returns></returns>
+        public long[] Reverse_Period_In_Data()
         {
             int length_massiv = 0;
             for (int i = 0; i < period.Length; i++)
@@ -176,8 +183,10 @@ namespace Saturation_Blood.Initial_processing
 
             }
             return period_all;
-        }//Переводим в одномерный массив
-
+        }
+        /// <summary>
+        /// Удалить нули из периода
+        /// </summary>
         public void Delete_Zero_In_Period()
         {
             for (int i = 1; i < period.Length; i++)
@@ -211,9 +220,11 @@ namespace Saturation_Blood.Initial_processing
 
             Set_Period(period_new);
 
-        }//Удаляем нули из периода
+        }
 
-
+        /// <summary>
+        /// Удалить нули в конце пульсовых циклов
+        /// </summary>
         public void Delete_Zero_At_End()
         {
             long[][] period_new = new long[period.Length][];
@@ -241,7 +252,11 @@ namespace Saturation_Blood.Initial_processing
             Set_Period(period_new);
         }
 
-        public long Period_In_Data_Length()//Возвращаем число элементов периода
+        /// <summary>
+        /// Вернуть число элементов периода
+        /// </summary>
+        /// <returns></returns>
+        public long Return_Period_In_Data_Length()
         {
             int length_massiv = 0;
             for (int i = 0; i < period.Length; i++)
@@ -264,7 +279,11 @@ namespace Saturation_Blood.Initial_processing
             return k;
         }
 
-        public long[,] Return_Periods_1000()//Дополняем все массивы периода нулями до 1000 
+        /// <summary>
+        /// Дополнить все массивы периода нулями до 1000 
+        /// </summary>
+        /// <returns></returns>
+        public long[,] Return_Periods_1000()
         {
             long[,] period1000 = new long[period.Length, 1000];
 
@@ -278,7 +297,12 @@ namespace Saturation_Blood.Initial_processing
 
             return period1000;
         }
-
+        /// <summary>
+        /// Вернуть номер элементая с координатами i-j
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
         public long Return_Length_x_Zero(int i, int j)
         {
             long a = System.Convert.ToInt64(j);
@@ -290,8 +314,12 @@ namespace Saturation_Blood.Initial_processing
 
             return a;
         }
-
-        public long Period_In_Data_Length(long[][] period)
+        /// <summary>
+        /// Вернуть число элементов периода
+        /// </summary>
+        /// <param name="period"></param>
+        /// <returns></returns>
+        public long Return_Period_In_Data_Length(long[][] period)
         {
             int length_massiv = 0;
             for (int i = 0; i < period.Length; i++)
@@ -313,7 +341,7 @@ namespace Saturation_Blood.Initial_processing
 
             return k;
 
-        }//Возвращает число элементов периода
+        }
 
     }
 }

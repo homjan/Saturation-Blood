@@ -12,7 +12,12 @@ namespace Saturation_Blood
         public Save_data()
         {
         }
-
+        /// <summary>
+        /// Удалить нулевые особые точки
+        /// </summary>
+        /// <param name="osob"></param>
+        /// <param name="ew1"></param>
+        /// <returns></returns>
         public long Compression(long[,] osob, long ew1)
         {
 
@@ -46,14 +51,17 @@ namespace Saturation_Blood
                     ew--;
 
                 }
-
-                //  ew--;
             }
 
             return ew;
 
         }
 
+        /// <summary>
+        /// Созранить особые точки для построения графика в файл "Особые точки чистые.txt"
+        /// </summary>
+        /// <param name="osob"></param>
+        /// <param name="ew"></param>
         public void Save_Osob_Point_Clear(long[,] osob, long ew)
         {
             ew = Compression(osob, ew);
@@ -70,7 +78,11 @@ namespace Saturation_Blood
 
         }
 
-
+        /// <summary>
+        /// Созранить особые точки для построения графика в файл "Особые точки - построение.txt"
+        /// </summary>
+        /// <param name="osob"></param>
+        /// <param name="ew"></param>
         public void Save_Osob_Point_Postr(long[,] osob, long ew)
         {
             ew = Compression(osob, ew);
@@ -87,7 +99,11 @@ namespace Saturation_Blood
 
         }
 
-
+        /// <summary>
+        /// Сохранить данные о сатурации в "насыщение.txt"
+        /// </summary>
+        /// <param name="saturation_time"></param>
+        /// <param name="saturation_y"></param>
         public void Save_Saturation(double[] saturation_time, double[] saturation_y) 
         {
             StreamWriter rw = new StreamWriter("насыщение.txt");

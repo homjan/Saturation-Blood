@@ -19,6 +19,12 @@ namespace Saturation_Blood
         int razmer_layer_1_in;
         int razmer_layer_2_in;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="razmer1">Дляна входного вектора</param>
+        /// <param name="razmer2">Длина внутреннего вектора</param>
+        /// <param name="razmer3">Длина выходного вектора</param>
         public Job_Net(int razmer1, int razmer2, int razmer3)
         {
 
@@ -34,6 +40,10 @@ namespace Saturation_Blood
 
 
         }
+        /// <summary>
+        /// Прочитать из файла смещения для первого слоя
+        /// </summary>
+        /// <param name="name_file">Имя файла</param>
 
         public void Read_In_File_Bias_1(String name_file)
         {
@@ -45,13 +55,9 @@ namespace Saturation_Blood
             string n1;
 
             int l1;
-            int j = 0;// счетчик строк 10         
-
+            int j = 0;// счетчик строк 10  
             int m = 0;//смещение буффера
 
-
-            //  try
-            //  {
             StreamReader sw = new StreamReader(name_file);
 
             while (sw.Peek() != -1)
@@ -66,9 +72,6 @@ namespace Saturation_Blood
 
                     buffer.Remove(0, n1.Length); //очищаем буффер
 
-                    //   n1.Replace('.', ',');                             // rw2.WriteLine(n1);
-                    //    double rtes = Convert.ToDouble("123,5");
-                    //    double gg=1;
                     if (n1 != "")
                     {
                         bias0[j] = System.Convert.ToDouble(n1);// пишем в массив
@@ -95,7 +98,10 @@ namespace Saturation_Blood
             sw.Close();
 
         }
-
+        /// <summary>
+        /// Прочитать из файла смещения для второго слоя
+        /// </summary>
+        /// <param name="name_file">Имя файла</param>
         public void Read_In_File_Bias_2(String name_file)
         {
 
@@ -106,12 +112,9 @@ namespace Saturation_Blood
             string n1;
 
             int l1;
-            int j = 0;// счетчик строк 10         
-
+            int j = 0;// счетчик строк 10   
             int m = 0;//смещение буффера
 
-            //  try
-            //  {
             StreamReader sw = new StreamReader(name_file);
 
             while (sw.Peek() != -1)
@@ -145,15 +148,15 @@ namespace Saturation_Blood
                     a++;
                     continue;
                 }
-
             }
-
             sw.Close();
-
 
         }
 
-
+        /// <summary>
+        /// Прочитать из файла веса для первого слоя
+        /// </summary>
+        /// <param name="name_file">Имя файла</param>
         public void Read_In_File_Weight_1(String name_file)
         {
             StringBuilder buffer = new StringBuilder();
@@ -164,23 +167,16 @@ namespace Saturation_Blood
 
             int l1;
             int j = 0;// счетчик строк 10
-
             int k = 0;//счетчик столбцов 2
-
-
             int m = 0;//смещение буффера
-
 
             long[,] rowx = new long[razmer_layer_1_in, razmer_data_in];
 
-            //  try
-            //  {
             StreamReader sw = new StreamReader(name_file);
 
             while (sw.Peek() != -1)
             {
                 l1 = sw.Read();
-
 
                 if (l1 == 13)
                 {
@@ -223,7 +219,10 @@ namespace Saturation_Blood
             sw.Close();
         }
 
-
+        /// <summary>
+        /// Прочитать из файла веса для второг слоя
+        /// </summary>
+        /// <param name="name_file">Имя файла</param>
         public void Read_In_File_Weight_2(String name_file)
         {
             StringBuilder buffer = new StringBuilder();
@@ -239,14 +238,11 @@ namespace Saturation_Blood
 
             long[,] rowx = new long[razmer_layer_2_in, razmer_layer_1_in];
 
-            //  try
-            //  {
             StreamReader sw = new StreamReader(name_file);
 
             while (sw.Peek() != -1)
             {
                 l1 = sw.Read();
-
 
                 if (l1 == 13)
                 {
@@ -292,6 +288,13 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Прямое распространение в перцептроне
+        /// </summary>
+        /// <param name="x">Входной вектор</param>
+        /// <param name="data_in">Длина входного вектора</param>
+        /// <param name="layer_1_in">Длина выходного вектора</param>
+        /// <returns></returns>
         public double[] Perzertron_Forward(double[] x, int data_in, int layer_1_in)
         {
             double[] y = new double[layer_1_in];
@@ -318,7 +321,13 @@ namespace Saturation_Blood
             return y;
 
         }
-
+        /// <summary>
+        /// Прямое распространение в перцептроне с функцией активации softmax
+        /// </summary>
+        /// <param name="x">Входной вектор</param>
+        /// <param name="layer_1_in">Длина входного вектора</param>
+        /// <param name="layer_2_in">Длина выходного вектора</param>
+        /// <returns></returns>
         public double[] Perzertron_Forward_Softmax(double[] x, int layer_1_in, int layer_2_in)
         {
             double[] y = new double[layer_2_in];
@@ -337,17 +346,16 @@ namespace Saturation_Blood
                 y[i] = y[i] + bias1[i];
             }
 
-            z = Softmax(y);
-            /*     for (int i = 0; i < x.Length; i++)
-                 {
-
-                     y[i] = sigmoid(y[i]);
-                 }*/
+            z = Softmax(y);        
 
             return z;
 
         }
-
+        /// <summary>
+        /// Функция активации Sigmoid
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public double Sigmoid(double x)
         {
 
@@ -355,7 +363,11 @@ namespace Saturation_Blood
             return y;
         }
 
-
+        /// <summary>
+        /// Функция активации Гиперболический тангенс
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public double Tanh(double x)
         {
 
@@ -363,6 +375,11 @@ namespace Saturation_Blood
             return y;
         }
 
+        /// <summary>
+        /// Функция активации RELU
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public double RELU(double x)
         {
             double y;
@@ -372,6 +389,11 @@ namespace Saturation_Blood
             return y;
         }
 
+        /// <summary>
+        /// Функция активации Softmax
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public double[] Softmax(double[] x)
         {
             double[] y = new double[x.Length];

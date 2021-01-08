@@ -23,8 +23,11 @@ namespace Saturation_Blood.Initial_processing
             
         }
 
-
-        public long[,] Return_Read_Massiv() //Считывает файл и записывает в массив (только цифры)
+        /// <summary>
+        /// Считать файл и записывает в массив (только цифры)
+        /// </summary>
+        /// <returns></returns>
+        public long[,] Return_Read_Massiv() 
         {
             StringBuilder buffer = new StringBuilder();
             int a = 0;
@@ -89,19 +92,19 @@ namespace Saturation_Blood.Initial_processing
 
         }
 
-        public int Return_Read_Strings() // Выдает число строк в считанном файле
-        {
-            //  StringBuilder buffer = new StringBuilder();
+        /// <summary>
+        /// Вернуть число строк в считанном файле
+        /// </summary>
+        /// <returns></returns>
+        public int Return_Read_Strings() // 
+        {            
             int a = 0;
             int b = 0;//счетчик строк
 
 
             int l1;
             int j = 0;// счетчик строк 10
-
             int k = 0;//счетчик столбцов 2
-
-
             int m = 0;//смещение буффера
 
             int potok = 5;
@@ -116,7 +119,6 @@ namespace Saturation_Blood.Initial_processing
             while (sw.Peek() != -1)
             {
                 l1 = sw.Read();
-
 
                 if (l1 == 13)
                 {
@@ -144,7 +146,12 @@ namespace Saturation_Blood.Initial_processing
 
         }
 
-        public long[,] Return_Read_Massiv_Special_Point(int ckor) //Считывает файл и записывает в массив (только цифры)
+        /// <summary>
+        /// Считывает файл особых точек и записывает их в массив 
+        /// </summary>
+        /// <param name="ckor"></param>
+        /// <returns></returns>
+        public long[,] Return_Read_Massiv_Special_Point(int ckor) 
         {
             StringBuilder buffer = new StringBuilder();
             int a = 0;
@@ -227,8 +234,11 @@ namespace Saturation_Blood.Initial_processing
 
         }
 
-
-        public long[][] Return_Read_Massiv_Divided_Data() //Считывает файл и записывает в массив (только цифры)
+        /// <summary>
+        /// Считывает файл и записывает в массив
+        /// </summary>
+        /// <returns></returns>
+        public long[][] Return_Read_Massiv_Divided_Data() 
         {
             StringBuilder buffer = new StringBuilder();
             int a = 0;

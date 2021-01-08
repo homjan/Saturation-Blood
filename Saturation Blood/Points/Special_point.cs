@@ -35,6 +35,10 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Вернуть точки ЭКГ
+        /// </summary>
+        /// <param name="combobox3">Данные регулировки</param>
         public void Return_Point_EKG(String combobox3)
         {
 
@@ -189,6 +193,9 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Удалить нули из периода
+        /// </summary>
         public void Delete_Zero_In_Data()
         {
             int arre = spec_point.Length;
@@ -233,8 +240,11 @@ namespace Saturation_Blood
 
             Set_Spec_Point(period_new);
 
-        }//Удаляем нули из периода
+        }
 
+        /// <summary>
+        /// Удалить периоды нулевой длительности 
+        /// </summary>
         public void Delete_Equal_Data() {
 
             int arre = spec_point.Length;
@@ -279,10 +289,12 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Вернуть особые точки
+        /// </summary>
+        /// <param name="combobox3">Данные регулировки</param>
         public void Return_Special_Point(String combobox3)
         {
-
-
             int b = initial_data.Get_b();
 
             long[,] row1 = initial_data.Get_row1();
@@ -308,9 +320,8 @@ namespace Saturation_Blood
                 max1_x[u] = 1;
                 max1_y[u] = 1;
             }
-            // while (ew<2)
-            while (b0 < b)/////////////поиск опорных точек
-                          // for (int est = 0; est < 120; est = est + 40)
+         
+            while (b0 < b)
             {
                 for (int t = 0; t < 200; t++)
                 {
@@ -322,7 +333,6 @@ namespace Saturation_Blood
                         max1_x[maxim] = row1[t + 1 + est, 0];
                         max1_coor[maxim] = t + 1 + est;
                     }
-
                 }
 
                 if (max1_y[maxim] > System.Convert.ToInt64(combobox3) * 10)////////////////////!!!!!!
@@ -332,9 +342,6 @@ namespace Saturation_Blood
                 }
                 est += 200;
             }
-
-
-
 
             ////////////////////////////////////////////////////////////////
             int period = 0;
@@ -374,12 +381,6 @@ namespace Saturation_Blood
                 Shift_065n = 0.65 * period;
                 Shift_075n = 0.75 * period;
             }
-
-
-            //     richTextBox2.Text = System.Convert.ToString(period);
-
-            //   int Left_Border = period - System.Convert.ToInt32(Math.Round(Left_shift));
-            //   int Right_Border = period + System.Convert.ToInt32(Math.Round(Right_shift));
 
             int Left_Border = System.Convert.ToInt32(Math.Round(Left_shift));
             int Right_Border = System.Convert.ToInt32(Math.Round(Right_shift));
@@ -474,7 +475,6 @@ namespace Saturation_Blood
             }
 
 
-
             for (int w = 2; w < ew - 2; w++)//перебираем пики
             {
 
@@ -496,16 +496,6 @@ namespace Saturation_Blood
                     }
                 }
 
-                ///////////////////////////////////////////--3 - полувысота в начале
-
-                /*    for (long i = max1_coor[w]; i > max1_coor[w] - Shift_03; i--)
-                    {
-                        if (row1[i, reg] < y_min_2[w])
-                        {
-                            y_min_2[w] = row1[i, reg];
-                            x_min_2[w] = row1[i, 0];
-                        }
-                    }*/
                 ////////////////////////////////////  // Ищем 1 максимум--7
 
                 for (long i = max1_coor[w]; i < max1_coor[w] + Shift_03; i++)
@@ -563,7 +553,6 @@ namespace Saturation_Blood
                     nomer_local_min[w] = Diff_3_max_coor;
 
                 }
-
 
                 B3_diff = false;
                 // ищем 2 локальный максимум  ---11
@@ -632,17 +621,18 @@ namespace Saturation_Blood
 
             }
 
-
-
             spec_point = schet;
         }
 
+        /// <summary>
+        /// Рассчитать особые точки используя нейронную сеть 1000-100-35
+        /// </summary>
         public void Return_Special_Point_Neural_Network()
         {
 
             long[][] periods = Period_job.Get_Period();//Конвертируем выбранную поток с рег в массив периодов
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
 
             long[,] periods_1000 = Period_job.Return_Periods_1000();//Добавляем 0 в массиве до одинаковой длины=1000
 
@@ -661,7 +651,7 @@ namespace Saturation_Blood
                      
             double[,] row0001 = Function_additional.Convert_Long_Double(periods_1000, ew, N_nejron_in);
 
-            double[,] row01 = Function_additional.Proizvodnaja_Massiv(row0001, ew, N_nejron_in);
+            double[,] row01 = Function_additional.Calculate_Derivative_Array(row0001, ew, N_nejron_in);
 
 
 
@@ -774,12 +764,15 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Рассчитать особые точки используя вторую нейронную сеть 1000-100-8 + поиск в 10 элементах
+        /// </summary>
         public void Return_Special_Point_Neural_Network_10()
         {
 
             long[][] periods = Period_job.Get_Period();
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
             long[,] periods_1000 = Period_job.Return_Periods_1000();//Добавляем 0 в массиве до одинаковой длины=1000
 
             int ew = periods.Length;//счетчик найденных максимумов
@@ -797,7 +790,7 @@ namespace Saturation_Blood
 
             double[,] row0001 = Function_additional.Convert_Long_Double(periods_1000, ew, N_nejron_in);
 
-            double[,] row01 = Function_additional.Proizvodnaja_Massiv(row0001, ew, N_nejron_in);
+            double[,] row01 = Function_additional.Calculate_Derivative_Array(row0001, ew, N_nejron_in);
 
 
 
@@ -921,11 +914,14 @@ namespace Saturation_Blood
             spec_point = schet;
         }
 
+        /// <summary>
+        /// Рассчитать особые точки используя вторую нейронную сеть 1000-300-80
+        /// </summary>
         public void Return_Special_Point_Neural_Network_100()
         {
             long[][] periods = Period_job.Get_Period();
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
 
 
             long[,] periods_1000 = Period_job.Return_Periods_1000();//Добавляем 0 в массиве до одинаковой длины=1000
@@ -945,7 +941,7 @@ namespace Saturation_Blood
 
             double[,] row0001 = Function_additional.Convert_Long_Double(periods_1000, ew, N_nejron_in);
 
-            double[,] row01 = Function_additional.Proizvodnaja_Massiv(row0001, ew, N_nejron_in);
+            double[,] row01 = Function_additional.Calculate_Derivative_Array(row0001, ew, N_nejron_in);
 
 
 
@@ -1061,11 +1057,14 @@ namespace Saturation_Blood
             spec_point = schet;
         }
 
+        /// <summary>
+        /// Рассчитать особые точки используя статистику
+        /// </summary>
         public void Return_Special_Point_Statistic()
         {
             long[][] periods = Period_job.Get_Period();
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
 
             int ew = periods.Length;//счетчик найденных максимумов
 
@@ -1077,9 +1076,7 @@ namespace Saturation_Blood
 
             long[,] row1 = initial_data.Get_row1();
             int reg = initial_data.REG;
-                       
-            Methods_Statistics methods = new Methods_Statistics();
-
+           
             for (int i = 0; i < ew; i++)
             {
 
@@ -1103,9 +1100,9 @@ namespace Saturation_Blood
                     schet[3, i] = row1[Period_job.Return_Length_x_Zero(i, 0 + shift_B1), 0]; // положение минимума В1 - начала отсчета
                     schet[10, i] = periods[i][0 + shift_B1];
 
-                    int B2 = methods.Statistic_Point_B2(periods[i].Length);
-                    int B3 = methods.Statistic_Point_B3(periods[i].Length);
-                    int B4 = methods.Statistic_Point_B4(periods[i].Length);
+                    int B2 = Methods_Statistics.Statistic_Point_B2(periods[i].Length);
+                    int B3 = Methods_Statistics.Statistic_Point_B3(periods[i].Length);
+                    int B4 = Methods_Statistics.Statistic_Point_B4(periods[i].Length);
 
                     schet[4, i] = periods[i][B2] - periods[i][0 + shift_B1]; // максимум В2
                     schet[5, i] = row1[Period_job.Return_Length_x_Zero(i, B2), 0]; // положение максимума В2 - начала отсчета - EKG_max_x[w]
@@ -1125,11 +1122,14 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Рассчитать особые точки используя статистику и дополнительные расчеты
+        /// </summary>
         public void Return_Special_Point_Statistic_Num()
         {
             long[][] periods = Period_job.Get_Period();
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
 
             int ew = periods.Length;//счетчик найденных максимумов
 
@@ -1142,8 +1142,6 @@ namespace Saturation_Blood
 
             long[,] row1 = initial_data.Get_row1();
             int reg = initial_data.REG;
-
-            Methods_Statistics methods = new Methods_Statistics();
 
             for (int i = 0; i < ew; i++)
             {
@@ -1168,9 +1166,9 @@ namespace Saturation_Blood
                     schet[3, i] = row1[Period_job.Return_Length_x_Zero(i, 0 + shift_B1), 0]; // положение минимума В1 - начала отсчета
                     schet[10, i] = periods[i][0 + shift_B1];
 
-                    int B2 = methods.Statistic_Point_B2(periods[i].Length);
-                    int B3 = methods.Statistic_Point_B3(periods[i].Length);
-                    int B4 = methods.Statistic_Point_B4(periods[i].Length);
+                    int B2 = Methods_Statistics.Statistic_Point_B2(periods[i].Length);
+                    int B3 = Methods_Statistics.Statistic_Point_B3(periods[i].Length);
+                    int B4 = Methods_Statistics.Statistic_Point_B4(periods[i].Length);
 
                     schet[4, i] = periods[i][B2] - periods[i][0 + shift_B1]; // максимум В2
                     schet[5, i] = row1[Period_job.Return_Length_x_Zero(i, B2), 0]; // положение максимума В2 - начала отсчета - EKG_max_x[w]
@@ -1190,9 +1188,9 @@ namespace Saturation_Blood
 
                 if (periods[i].Length > 150)
                 {
-                    int B2 = methods.Statistic_Point_B2(periods[i].Length);
-                    int B3 = methods.Statistic_Point_B3(periods[i].Length);
-                    int B4 = methods.Statistic_Point_B4(periods[i].Length);
+                    int B2 = Methods_Statistics.Statistic_Point_B2(periods[i].Length);
+                    int B3 = Methods_Statistics.Statistic_Point_B3(periods[i].Length);
+                    int B4 = Methods_Statistics.Statistic_Point_B4(periods[i].Length);
                     //В2
                     long max_B2 = periods[i][B2];
                     int coor_B2 = B2;
@@ -1306,12 +1304,14 @@ namespace Saturation_Blood
             spec_point = schet;
         }
 
-
+        /// <summary>
+        /// Рассчитать особые точки используя статистику 
+        /// </summary>
         public void Return_Special_Point_Statistic_Num_2()
         {
             long[][] periods = Period_job.Get_Period();
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
 
             int ew = periods.Length;//счетчик найденных максимумов
 
@@ -1324,8 +1324,6 @@ namespace Saturation_Blood
 
             long[,] row1 = initial_data.Get_row1();
             int reg = initial_data.REG;
-
-            Methods_Statistics methods = new Methods_Statistics();
 
             StreamWriter rwx = new StreamWriter("Положение особых точек.txt");
 
@@ -1351,9 +1349,9 @@ namespace Saturation_Blood
                     schet[2, i] = periods[i][0 + shift_B1]; // минимум В1
                     schet[10, i] = periods[i][0 + shift_B1];
 
-                    int B2 = methods.Statistic_Point_B2(periods[i].Length);
-                    int B3 = methods.Statistic_Point_B3(periods[i].Length);
-                    int B4 = methods.Statistic_Point_B4(periods[i].Length);
+                    int B2 = Methods_Statistics.Statistic_Point_B2(periods[i].Length);
+                    int B3 = Methods_Statistics.Statistic_Point_B3(periods[i].Length);
+                    int B4 = Methods_Statistics.Statistic_Point_B4(periods[i].Length);
 
                     schet[4, i] = periods[i][B2] - periods[i][0 + shift_B1]; // максимум В2
 
@@ -1370,9 +1368,9 @@ namespace Saturation_Blood
 
                 if (periods[i].Length > 150)
                 {
-                    int B2 = methods.Statistic_Point_B2(periods[i].Length);
-                    int B3 = methods.Statistic_Point_B3(periods[i].Length);
-                    int B4 = methods.Statistic_Point_B4(periods[i].Length);
+                    int B2 = Methods_Statistics.Statistic_Point_B2(periods[i].Length);
+                    int B3 = Methods_Statistics.Statistic_Point_B3(periods[i].Length);
+                    int B4 = Methods_Statistics.Statistic_Point_B4(periods[i].Length);
                     //В2
                     long max_B2 = periods[i][B2];
                     int coor_B2 = B2;
@@ -1487,13 +1485,16 @@ namespace Saturation_Blood
             rwx.Close();
         }
 
+        /// <summary>
+        /// Рассчитать особые точки используя нейронную сеть 1000-100-35 с пересчетом диапазона
+        /// </summary>
         public void Return_Special_Point_Neural_Network_2()
         {
             StreamWriter rwx = new StreamWriter("Положение особых точек.txt");
 
             long[][] periods = Period_job.Get_Period();//Конвертируем выбранную поток с рег в массив периодов
 
-            long periods_full_length = Period_job.Period_In_Data_Length();
+            long periods_full_length = Period_job.Return_Period_In_Data_Length();
 
             long[,] periods_1000 = Period_job.Return_Periods_1000();//Добавляем 0 в массиве до одинаковой длины=1000
 
@@ -1512,7 +1513,7 @@ namespace Saturation_Blood
 
             double[,] row0001 = Function_additional.Convert_Long_Double(periods_1000, ew, N_nejron_in);
 
-            double[,] row01 = Function_additional.Proizvodnaja_Massiv(row0001, ew, N_nejron_in);
+            double[,] row01 = Function_additional.Calculate_Derivative_Array(row0001, ew, N_nejron_in);
 
 
 
@@ -1620,7 +1621,12 @@ namespace Saturation_Blood
 
         }
 
-
+        /// <summary>
+        /// Рассчитать сдвиг особых точек
+        /// </summary>
+        /// <param name="sche"></param>
+        /// <param name="ew"></param>
+        /// <returns></returns>
         public long[,] Shift_Special_Point(long[,] sche, long ew)
         {
             long[,] schet = sche;

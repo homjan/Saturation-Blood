@@ -38,12 +38,19 @@ namespace Saturation_Blood
 
         }
 
-      
+      /// <summary>
+      /// Очистить график
+      /// </summary>
         public void ClearGraph()
         {
             pane.CurveList.Clear();
         }
 
+        /// <summary>
+        /// Построить график для всех 4 каналов
+        /// </summary>
+        /// <param name="xxx">Массив с данными</param>
+        /// <param name="b">Число строк</param>
         public void MakeGraph_4_Kanal(long[,] xxx, int b)
         {
             PointPairList f1_list = new PointPairList();
@@ -65,6 +72,12 @@ namespace Saturation_Blood
             LineItem myCurve4 = pane.AddCurve("Канал4", f4_list, Color.Black, SymbolType.None);
 
         }
+        /// <summary>
+        /// Установить оси
+        /// </summary>
+        /// <param name="Xaxis"></param>
+        /// <param name="Yaxis"></param>
+        /// <param name="Title_text"></param>
         public void Install_Pane(String Xaxis, String Yaxis, String Title_text)
         {
             pane.Title.Text = Title_text;
@@ -72,6 +85,12 @@ namespace Saturation_Blood
             pane.YAxis.Title.Text = Yaxis;
         }
 
+        /// <summary>
+        /// Построить график одной функции с временем сигнала
+        /// </summary>
+        /// <param name="xxx"></param>
+        /// <param name="yyy"></param>
+        /// <param name="b">Число строк</param>
         public void MakeGraph_One_Function(long[,] xxx, long[] yyy, int b)
         {
             PointPairList f1_list = new PointPairList();           
@@ -85,7 +104,10 @@ namespace Saturation_Blood
 
         }
 
-
+        /// <summary>
+        /// Построить график от выбранного канала
+        /// </summary>
+        /// <param name="number_Kanal"></param>
         public void MakeGraph_of_Chosen_Kanal(int number_Kanal) {
 
             long[,] row_1 = initdata.Get_row1();
@@ -147,7 +169,9 @@ namespace Saturation_Blood
            
 
         }
-
+        /// <summary>
+        /// Построить график от канала ФПГ
+        /// </summary>
         public void MakeGraph_On_Canal_FPG()
         {
 
@@ -224,6 +248,12 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Построить график особых точек
+        /// </summary>
+        /// <param name="osob_x">Массив с координатами х</param>
+        /// <param name="osob_y">Массив с координатами y</param>
+        /// <param name="ew">Число особых точек</param>
         public void MakeGraph_Special_Point(long[,] osob_x, long[,] osob_y, int ew)
         {
 
@@ -235,11 +265,7 @@ namespace Saturation_Blood
             PointPairList list9 = new PointPairList();
 
             for (int w = 2; w < ew - 2; w++)
-            {
-                /*   for (int i = 0; i < 14; i++)
-                   {
-                       list4.Add(osob_x[i, w] / 1000, osob_y[i, w]);
-                   }*/
+            {                
                 list5.Add(osob_x[1, w] / 1000, osob_y[1, w]);
                 list6.Add(osob_x[2, w] / 1000, osob_y[2, w]);
                 list7.Add(osob_x[3, w] / 1000, osob_y[3, w]);
@@ -292,6 +318,14 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Построить график максимумов-минимумов
+        /// </summary>
+        /// <param name="osob_x"></param>
+        /// <param name="osob_y"></param>
+        /// <param name="ew"></param>
+        /// <param name="title_1"></param>
+        /// <param name="title_2"></param>
         public void Make_Graph_Max_Min(long[,] osob_x, long[,] osob_y, int ew, string title_1, string title_2)
         {
             // Выводим точки на экран
@@ -331,6 +365,13 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Построить график сатурации
+        /// </summary>
+        /// <param name="Saturation_t"></param>
+        /// <param name="Saturation_y1"></param>
+        /// <param name="Saturation_y2"></param>
+        /// <param name="ew"></param>
         public void Make_Graph_Saturation(double[] Saturation_t, double[] Saturation_y1, double[] Saturation_y2, int ew)
         {
             PointPairList f_saturation = new PointPairList();
@@ -361,6 +402,10 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Построить график максимумов-минимумов
+        /// </summary>
+        /// <param name="srec_point"></param>
         public void Make_Graph_Special_Point_B1_B2(long[,] srec_point)
         {
 

@@ -32,8 +32,12 @@ namespace Saturation_Blood
 
         Initial_processing.Reader_data re_data;
 
-        //Конструктур открывает файл c именем ss и заполняет содержимым 2-мерный массив 
-        //reg ekg - номера каналов с рег и экг
+        /// <summary>
+        /// Конструктор открывает файл c именем ss и заполняет содержимым 2-мерный массив 
+        /// </summary>
+        /// <param name="ss">Имя файла</param>
+        /// <param name="reg">номер каналов с РЭГ</param>
+        /// <param name="ekg">номер каналов с ЕКГ</param>
         public Initial_Data(String ss, int reg, int ekg) //
         {
             this.name_file = ss;
@@ -73,6 +77,13 @@ namespace Saturation_Blood
             Row3_Average_Kanal_reg();
         }
 
+        /// <summary>
+        /// Конструктор открывает файл c именем ss, заполняет содержимым 2-мерный массив и разрезает данные с выбранный канал РЭГ на периоды
+        /// </summary>
+        /// <param name="ss"></param>
+        /// <param name="reg"></param>
+        /// <param name="ekg"></param>
+        /// <param name="div"></param>
         public Initial_Data(String ss, int reg, int ekg, bool div) //
         {
             this.name_file = ss;
@@ -85,8 +96,10 @@ namespace Saturation_Blood
 
             // b = re_data.return_read_stroki();
         }
-
-        public void Row1_Shift_Time_To_0() // сдвигаем к 0 1 столбик c временем
+        /// <summary>
+        /// Сдвинуть к 0 1 столбик c временем
+        /// </summary>
+        public void Row1_Shift_Time_To_0() 
         {
             for (int j = 3; j < b; j++)
             {
@@ -98,7 +111,10 @@ namespace Saturation_Blood
 
         }
 
-        public void Row1_Smothing() // сглаживаем все кроме времени
+        /// <summary>
+        /// Сглаживаем по 7 точкам все кроме времени
+        /// </summary>
+        public void Row1_Smothing() //
         {
             long[,] rw11 = row1;
 
@@ -112,6 +128,9 @@ namespace Saturation_Blood
 
         }
 
+        /// <summary>
+        /// Отражаем данные с канала РЭГ относительно среднего значения этого канала
+        /// </summary>
         public void Row1_Reflect() {
 
             long sum_row = 0;
@@ -128,11 +147,11 @@ namespace Saturation_Blood
                  row1[q, REG] = sum_row + (sum_row - row1[q, REG]);
              }
 
-          //  reflection_row1(REG);
-           
-
         }
-
+        /// <summary>
+        /// Отражаем данные с выбранного канала относительно среднего значения этого канала
+        /// </summary>
+        /// <param name="canal">Номер канала</param>
         public void Row1_Reflect_Chosen(int canal)
         {
                long sum_row = 0;
@@ -186,7 +205,10 @@ namespace Saturation_Blood
 
         }
 
-        public void Row2_Calculate()// считаем производную и усиливаем ее
+        /// <summary>
+        /// Считать производную и усиливать ее
+        /// </summary>
+        public void Row2_Calculate()// 
         {
             for (int d = 1; d <= potok2; d++)
                 {
@@ -196,7 +218,10 @@ namespace Saturation_Blood
                 }
             }                       
         }
-
+        /// <summary>
+        /// Считать производную и усиливать ее в pow_DIFF_1 раз
+        /// </summary>
+        /// <param name="pow_DIFF_1"></param>
         public void Row2_re_Calculate(int pow_DIFF_1) {
 
             for (int d = 1; d <= potok2; d++)
@@ -208,8 +233,10 @@ namespace Saturation_Blood
             }
 
         }
-
-        public void Row3_Average_Kanal_reg()// усредняем производную 
+        /// <summary>
+        /// Усреднить производную канала РЭГ
+        /// </summary>
+        public void Row3_Average_Kanal_reg()
         {
             for (int q = 4; q < b - 4; q++)
                 {
@@ -217,6 +244,10 @@ namespace Saturation_Blood
                 }         
         }
 
+        /// <summary>
+        /// Усреднить производную выбранного канала
+        /// </summary>
+        /// <param name="number_kanal"></param>
         public void Row3_Average_Chosen_Kanal(int number_kanal) {
 
             for (int q = 4; q < b - 4; q++)
@@ -226,8 +257,10 @@ namespace Saturation_Blood
             REG = number_kanal;
 
         }
-
-        public void Row4_Smoothing_ekg()//Сглаживаем экг
+        /// <summary>
+        /// Сгладить ЭКГ
+        /// </summary>
+        public void Row4_Smoothing_ekg()
         {
             for (int q = 3; q < b - 8; q++)
             {
@@ -235,6 +268,11 @@ namespace Saturation_Blood
             }
         }
 
+        /// <summary>
+        /// Найти положение элемента массива с выбранным временем
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public int Find_Position_in_Time(long time) {
             int position = 0;
 
@@ -282,7 +320,10 @@ namespace Saturation_Blood
 
             return position;
         }
-
+        /// <summary>
+        /// Записать даннык в файл
+        /// </summary>
+        /// <param name="name_file">Имя файла</param>
         public void Row1_Write_In_File(String name_file)
         {
             StreamWriter rw2 = new StreamWriter(name_file);

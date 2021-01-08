@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Saturation_Blood
 {
-    class Methods_Statistics
+    static class Methods_Statistics
     {
-
-        public int Statistic_Point_B2(long x1)
+        /// <summary>
+        /// Расчет среднего положения точки В2
+        /// </summary>
+        /// <param name="x1">Число точек пульсового цикла</param>
+        /// <returns></returns>
+        public static int Statistic_Point_B2(long x1)
         {
 
             double x = System.Convert.ToDouble(x1);
@@ -30,7 +34,12 @@ namespace Saturation_Blood
 
         }
 
-        public int Statistic_Point_B3(long x1)
+        /// <summary>
+        /// Расчет среднего положения точки В3
+        /// </summary>
+        /// <param name="x1">Число точек пульсового цикла</param>
+        /// <returns></returns>
+        public static int Statistic_Point_B3(long x1)
         {
 
             double x = System.Convert.ToDouble(x1);
@@ -50,7 +59,13 @@ namespace Saturation_Blood
             return z;
 
         }
-        public int Statistic_Point_B4(long x1)
+
+        /// <summary>
+        /// Расчет среднего положения точки В4
+        /// </summary>
+        /// <param name="x1">Число точек пульсового цикла</param>
+        /// <returns></returns>
+        public static int Statistic_Point_B4(long x1)
         {
 
             double x = System.Convert.ToDouble(x1);

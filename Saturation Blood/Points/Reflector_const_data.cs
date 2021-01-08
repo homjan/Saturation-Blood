@@ -29,6 +29,12 @@ namespace Saturation_Blood
             osob_point_const = new long[15, length_osob_point_diff];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="initial_Data"></param>
+        /// <param name="osob_point_diff"></param>
+        /// <param name="number_canal_const"></param>
         public Reflector_Const_Data(Initial_Data initial_Data, long[,] osob_point_diff, int number_canal_const)
         {
             this.row_1 = initial_Data.Get_row1();
@@ -72,13 +78,19 @@ namespace Saturation_Blood
 
         ////////////////////////
 
-
+        /// <summary>
+        /// Установить особые точки постоянного канала исходя их особых точек переменного
+        /// </summary>
+        /// <param name="init_data"></param>
         public void Set_Const_Special_Point_from_Diff(Initial_Data init_data)
         {
             osob_point_const = Function_additional.Set_Const_Special_Point_from_Diff(init_data, osob_point_diff, number_canal_const);
                                  
         }       
 
+        /// <summary>
+        /// Рассчитать линию отражения
+        /// </summary>
         public void Calculate_line_reflection() {
 
             int s = 1;
@@ -115,6 +127,9 @@ namespace Saturation_Blood
             }  
         }
 
+        /// <summary>
+        /// Рассчитать отраженный ряд
+        /// </summary>
         public void Calculate_reflected_row() {
                        
             for (int i = 0; i < length_row_1; i++)
