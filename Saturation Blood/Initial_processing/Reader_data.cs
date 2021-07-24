@@ -19,7 +19,7 @@ namespace Saturation_Blood.Initial_processing
             this.name = s;
             System.IO.FileInfo file = new System.IO.FileInfo(s);
             size = file.Length;
-            time_numerical2 = Convert.ToInt32(Convert.ToDouble(size) / 30.0);
+            time_numerical2 = Convert.ToInt32(Convert.ToDouble(size) / 10.0);
             
         }
 
